@@ -53,6 +53,13 @@ public class Trainingsplan extends JFrame {
         buttonSpeichern.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    String uebung1 = textFieldUebung1.toString();
+                    String uebung2 = textFieldUebung2.toString();
+                    String uebung3 = textFieldUebung3.toString();
+                } catch(Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Bitte eine gültige Übung eingeben!", "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
+                }
 
             }
         });
