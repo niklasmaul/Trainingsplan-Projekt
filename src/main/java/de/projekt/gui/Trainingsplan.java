@@ -61,6 +61,24 @@ public class Trainingsplan extends JFrame {
                     JOptionPane.showMessageDialog(null, "Bitte eine gültige Übung eingeben!", "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
                 }
 
+                try {
+                    // Versucht, den Text aus textFieldDatum in eine Zahl zu konvertieren
+                    double kg1 = Double.parseDouble(textFieldKG1.getText());
+                    double kg2 = Double.parseDouble(textFieldKG2.getText());
+                    double kg3 = Double.parseDouble(textFieldKG3.getText());
+
+                } catch (NumberFormatException ex) {
+                    // Fehlermeldung bei ungültiger Eingabe
+                    JOptionPane.showMessageDialog(null, "Bitte eine gültige Anzahl eingeben!", "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
+                }
+                try {
+                    // Versucht, den Text aus textFieldDatum in eine Zahl zu konvertieren
+                   int cardioMin = Integer.parseInt(textFieldCardioMin.getText());
+
+                } catch (NumberFormatException ex) {
+                    // Fehlermeldung bei ungültiger Eingabe
+                    JOptionPane.showMessageDialog(null, "Bitte eine gültige Anzahl eingeben!", "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         //öffnet neues Übersichts Fenster
