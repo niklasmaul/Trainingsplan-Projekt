@@ -40,6 +40,7 @@ public class Trainingsplan extends JFrame {
         //initiiert die Listener
         initListener();
 
+
     }
 
     //startet das Programm
@@ -49,6 +50,12 @@ public class Trainingsplan extends JFrame {
 
     //enthält alle Listener
     private void initListener() {
+        buttonSpeichern.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
         //öffnet neues Übersichts Fenster
         buttonLetzte.addActionListener(new ActionListener() {
             @Override
