@@ -67,13 +67,18 @@ public class Trainingsplan extends JFrame {
                     int cardioMin = Integer.parseInt(textFieldCardioMin.getText());
                     //Versucht Das datum zu speichern
                     LocalDate datum = LocalDate.parse(textFieldDatum.getText());
+                    for(Einheit einheit : einheiten) { //prüft ob bereits eine Einheit an diesem Tag durchgeführt wurde
+                        if(datum.equals(einheit.getDate())) {
+                            throw new Exception("Du hast bereits eine Einheit an diesem Tag durchgeführt");
+                        }
+                    }
                     // Versucht, die sachen in einem Objekt zu speichern
                     Einheit varEinheit = new Einheit(uebung1, kg1, uebung2, kg2, uebung3, kg3, cardio, cardioMin, datum);
-                    einheiten.add(varEinheit);
+                    einheiten.add(varEinheit); //speichert die Einheit in die Liste
                     JOptionPane.showMessageDialog(null, "Daten wurden erfolgreich gespeichert!", "gespeichert", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception ex) {
                     // Fehlermeldung bei ungültiger Eingabe
-                    JOptionPane.showMessageDialog(null, "Bitte gebe in jedem Feld ein gültigen Wert ein!", "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Bitte gebe in jedem Feld ein gültigen Wert ein!\n" + ex.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -88,7 +93,7 @@ public class Trainingsplan extends JFrame {
         });
     }
 
-    //setzt 3 Einheiten schon einmal in die Liste
+    //setzt 5 Einheiten schon einmal in die Liste
     private void initObjects() {
         Einheit e1 = new Einheit("Brustpresse", 72.5,
                 "Butterfly", 15.0, "Schulterpresse", 30.0,
