@@ -22,7 +22,7 @@ public class Trainingsplan extends JFrame {
     private JTextField textFieldKG1;
     private JTextField textFieldKG2;
     private JTextField textFieldKG3;
-    private ArrayList<Einheit> einheit = new ArrayList<Einheit>();
+    private ArrayList<Einheit> einheiten = new ArrayList<Einheit>();
 
     public Trainingsplan() {
         setTitle("Trainingsplan");
@@ -54,30 +54,26 @@ public class Trainingsplan extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String uebung1 = textFieldUebung1.toString();
-                    String uebung2 = textFieldUebung2.toString();
-                    String uebung3 = textFieldUebung3.toString();
-                } catch(Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Bitte eine gültige Übung eingeben!", "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
-                }
-
-                try {
-                    // Versucht, den Text aus textFieldDatum in eine Zahl zu konvertieren
+                    //nimmt die Strings
+                    String uebung1 = textFieldUebung1.getText();
+                    String uebung2 = textFieldUebung2.getText();
+                    String uebung3 = textFieldUebung3.getText();
+                    String cardio = comboBoxCardioEinheit.getSelectedItem().toString();
+                    // Versucht, den Text aus textFieldKG in eine Zahl zu konvertieren
                     double kg1 = Double.parseDouble(textFieldKG1.getText());
                     double kg2 = Double.parseDouble(textFieldKG2.getText());
                     double kg3 = Double.parseDouble(textFieldKG3.getText());
-
-                } catch (NumberFormatException ex) {
+                    // Versucht, den Text aus textFieldCardioMin in eine Zahl zu konvertieren
+                    int cardioMin = Integer.parseInt(textFieldCardioMin.getText());
+                    //Versucht Das datum zu speichern
+                    LocalDate datum = LocalDate.parse(textFieldDatum.getText());
+                    // Versucht, die sachen in einem Objekt zu speichern
+                    Einheit varEinheit = new Einheit(uebung1, kg1, uebung2, kg2, uebung3, kg3, cardio, cardioMin, datum);
+                    einheiten.add(varEinheit);
+                    JOptionPane.showMessageDialog(null, "Daten wurden erfolgreich gespeichert!", "gespeichert", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception ex) {
                     // Fehlermeldung bei ungültiger Eingabe
-                    JOptionPane.showMessageDialog(null, "Bitte eine gültige Anzahl eingeben!", "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
-                }
-                try {
-                    // Versucht, den Text aus textFieldDatum in eine Zahl zu konvertieren
-                   int cardioMin = Integer.parseInt(textFieldCardioMin.getText());
-
-                } catch (NumberFormatException ex) {
-                    // Fehlermeldung bei ungültiger Eingabe
-                    JOptionPane.showMessageDialog(null, "Bitte eine gültige Anzahl eingeben!", "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Bitte gebe in jedem Feld ein gültigen Wert ein!", "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -85,9 +81,9 @@ public class Trainingsplan extends JFrame {
         buttonLetzte.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                new TrainingsplanUebersicht(Trainingsplan.this, einheiten); //öffnet das neue Fenster mit den
+                // Parametern von dieser GUI damit dieses nicht verloren geht und die ArrayList damit die gleiche übertragen wird.
                 dispose();
-                TrainingsplanUebersicht trainingsplanUebersicht = new TrainingsplanUebersicht();
-                trainingsplanUebersicht.setVisible(true);
             }
         });
     }
@@ -110,17 +106,17 @@ public class Trainingsplan extends JFrame {
                 "Butterfly", 12.5, "Schulterpresse", 27.5,
                 "Laufband", 90, LocalDate.now().minusDays(1));
 
-        einheit.add(e1); //fügt die Einheiten in die ArrayList
-        einheit.add(e2);
-        einheit.add(e3);
-        einheit.add(e4);
-        einheit.add(e5);
+        einheiten.add(e1); //fügt die Einheiten in die ArrayList
+        einheiten.add(e2);
+        einheiten.add(e3);
+        einheiten.add(e4);
+        einheiten.add(e5);
     }
 
 
 
     //gibt die ArrayList auch an andere Klassen
-    public ArrayList<Einheit> getEinheit() {
-        return einheit;
+    public ArrayList<Einheit> getEinheiten() {
+        return einheiten;
     }
 }

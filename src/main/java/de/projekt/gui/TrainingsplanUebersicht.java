@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class TrainingsplanUebersicht extends JFrame{
     private JComboBox comboBoxAuswahl;
@@ -13,51 +14,62 @@ public class TrainingsplanUebersicht extends JFrame{
     private JPanel uebersicht;
     private JButton buttonBack;
 
-    private final Trainingsplan trainingsplan = new Trainingsplan(); //Klasse Trainingsplan initiiren damit man auf die ArrayList aus der Klasse zugreifen kann
+    private ArrayList<Einheit> einheiten;
 
-    public TrainingsplanUebersicht() {
+    public TrainingsplanUebersicht(JFrame trainingsplan, ArrayList<Einheit> einheiten) {
         setTitle("Trainingsplan Übersicht");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
         setContentPane(uebersicht);
         setVisible(true);
 
+        this.einheiten = einheiten;
+
         textAreaUebersicht.setText(insgesamt()); //setzt am beginn direkt die Insgesamt Übersicht ein
 
         //setzt die Einheiten in die ComboBox zum auswählen
-        for (Einheit einheit : trainingsplan.getEinheit()) {
+        for (Einheit einheit : einheiten) {
             comboBoxAuswahl.addItem(einheit); //setzt jede Einheit aus der Liste nacheinander ein
         }
 
         initListener(); //ruft die methode aud damit die Listener funktionieren
 
+        //Listener um zurück zum anderen Fenster zu kommen
+        buttonBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); //schließt das Fenster
+                trainingsplan.setVisible(true); //öffnet Hauptfenster
+            }
+        });
+
     }
 
     //berechnet die Insgesamte bewegten KG und kcal verbrauch etc.
     private String insgesamt() {
-        int einheiten = trainingsplan.getEinheit().size(); //gibt die größe der Liste als Zahl der insegesamt vollendeten EInheiten wieder
+        int anzEinheiten = einheiten.size(); //gibt die größe der Liste als Zahl der insegesamt vollendeten EInheiten wieder
         double kggesamt = 0;
         double kaloriengesamt = 0;
 
-        for (Einheit einheit : trainingsplan.getEinheit()) {
+        for (Einheit einheit : einheiten) {
             kggesamt = kggesamt + einheit.getGewicht1() + einheit.getGewicht2() + einheit.getGewicht3(); //alle gewichte von jeder Einheit wird addiert.
             kaloriengesamt = kaloriengesamt + einheit.kcalverbrannt(); //alle verbrannte kcal werden addiert
         }
 
         return "Insgesamt: \n------------------------------------------------\n" +
-                "Insgesamt vollendete Einheiten: " + einheiten + "\nInsgesamt bewegte Kilogramm: " + kggesamt + "\nInsgesamt verbrannt Kalorien: " + kaloriengesamt;
+                "Insgesamt vollendete Einheiten: " + anzEinheiten + "\nInsgesamt bewegte Kilogramm: " + kggesamt + "\nInsgesamt verbrannt Kalorien: " + kaloriengesamt;
     }
 
     //berechnet die Werte der letzten 7 Tage
     private String last7Days() {
         LocalDate today = LocalDate.now(); //gibt das aktuelle Datum
-        int einheiten = 0;
+        int anzEinheiten = 0;
         double kggesamt = 0;
         double kaloriengesamt = 0;
 
-        for (Einheit einheit : trainingsplan.getEinheit()) {
+        for (Einheit einheit : einheiten) {
             if(einheit.getDate().isAfter(today.minusDays(7))) { //prüft ob die einheit in den Letzten 7 Tagen ausgeführt wurde
-                einheiten = einheiten + 1; //addiert die Einheiten
+                anzEinheiten = anzEinheiten + 1; //addiert die Einheiten
                 kggesamt = kggesamt + einheit.getGewicht1() + einheit.getGewicht2() + einheit.getGewicht3(); //addiert die gewichte
                 kaloriengesamt = kaloriengesamt + einheit.kcalverbrannt(); //addiert die verbrannte kalorien
             }
@@ -65,7 +77,7 @@ public class TrainingsplanUebersicht extends JFrame{
         }
 
         return "Letzte 7 Tage: \n------------------------------------------------\n" +
-                "Insgesamt vollendete Einheiten: " + einheiten + "\nInsgesamt bewegte Kilogramm: " + kggesamt + "\nInsgesamt verbrannt Kalorien: " + kaloriengesamt;
+                "Insgesamt vollendete Einheiten: " + anzEinheiten + "\nInsgesamt bewegte Kilogramm: " + kggesamt + "\nInsgesamt verbrannt Kalorien: " + kaloriengesamt;
     }
 
     //Listener
@@ -87,13 +99,5 @@ public class TrainingsplanUebersicht extends JFrame{
             }
         });
 
-        //Listener um zurück zum anderen Fenster zu kommen
-        buttonBack.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose(); //schließt das Fenster
-                trainingsplan.setVisible(true); //öffnet Hauptfenster
-            }
-        });
     }
 }
