@@ -50,6 +50,7 @@ public class Trainingsplan extends JFrame {
 
     //enthält alle Listener
     private void initListener() {
+        //versucht die Daten zu speichern
         buttonSpeichern.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
