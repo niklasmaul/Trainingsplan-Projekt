@@ -56,6 +56,9 @@ public class Trainingsplan extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     //nimmt die Strings
+                    if(textFieldUebung1.getText().isEmpty() || textFieldUebung2.getText().isEmpty() || textFieldUebung3.getText().isEmpty()) {
+                        throw new Exception("Fülle die Felder bitte aus!");
+                    }
                     String uebung1 = textFieldUebung1.getText();
                     String uebung2 = textFieldUebung2.getText();
                     String uebung3 = textFieldUebung3.getText();
