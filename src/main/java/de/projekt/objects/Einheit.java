@@ -2,6 +2,7 @@ package de.projekt.objects;
 
 import java.time.LocalDate;
 
+//die Einheit Klasse besitz den Konstruktor um ein Objekt zu erstellen
 public class Einheit {
 
     private LocalDate date;
@@ -41,7 +42,7 @@ public class Einheit {
         };
     }
 
-    //damit wird bei der Combobox Einheit auswahl nur das Datum angezeigt
+    //damit wird bei der Combobox Einheit auswahl nur das Datum angezeigt (mithilfe von ChatGPT)
     @Override
     public String toString() {
         return date.toString();

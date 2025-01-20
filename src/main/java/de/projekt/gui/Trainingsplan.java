@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+//die Trainingsplan Klasse erstellt das GUI und wie das funktioniert
 public class Trainingsplan extends JFrame {
     private JTextField textFieldDatum;
     private JComboBox comboBoxCardioEinheit;
