@@ -15,7 +15,7 @@ public class TrainingsplanUebersicht extends JFrame{
     private JButton buttonBack;
 
     private ArrayList<Einheit> einheiten;
-
+                                //hat das Hauptfenster (Trainingsplan Klasse) und eine Arraylist als Parameter, damit die Daten übernommen werden.
     public TrainingsplanUebersicht(JFrame trainingsplan, ArrayList<Einheit> einheiten) {
         setTitle("Trainingsplan Übersicht");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -23,13 +23,13 @@ public class TrainingsplanUebersicht extends JFrame{
         setContentPane(uebersicht);
         setVisible(true);
 
-        this.einheiten = einheiten;
+        this.einheiten = einheiten; //Arraylist aus Trainingsplan Klasse wird hier initiiert, sodass die gespeicherten Daten erhalten bleiben
 
         textAreaUebersicht.setText(insgesamt()); //setzt am beginn direkt die Insgesamt Übersicht ein
 
         //setzt die Einheiten in die ComboBox zum auswählen
         for (Einheit einheit : einheiten) {
-            comboBoxAuswahl.addItem(einheit); //setzt jede Einheit aus der Liste nacheinander ein
+            comboBoxAuswahl.addItem(einheit); //setzt jede Einheit durch die for-Schleife aus der Liste nacheinander ein
         }
 
         initListener(); //ruft die methode aud damit die Listener funktionieren

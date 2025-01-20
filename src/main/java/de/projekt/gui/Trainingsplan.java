@@ -92,13 +92,14 @@ public class Trainingsplan extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new TrainingsplanUebersicht(Trainingsplan.this, einheiten); //öffnet das neue Fenster mit den
-                // Parametern von dieser GUI damit dieses nicht verloren geht und die ArrayList damit die gleiche übertragen wird.
-                dispose();
+                // Parametern von dieser GUI damit dieses nicht verloren geht/nicht neu ertellt wird. die ArrayList wird angegeben
+                // damit diese auch die gleiche in der Übersicht Klasse ist wie diese hier.
+                dispose(); //schließt das Fenster
             }
         });
     }
 
-    //setzt 5 Einheiten schon einmal in die Liste
+    //erstellt 5 Einheiten/Objekte
     private void initObjects() {
         Einheit e1 = new Einheit("Brustpresse", 72.5,
                 "Butterfly", 15.0, "Schulterpresse", 30.0,
@@ -116,7 +117,7 @@ public class Trainingsplan extends JFrame {
                 "Butterfly", 12.5, "Schulterpresse", 27.5,
                 "Laufband", 90, LocalDate.now().minusDays(1));
 
-        einheiten.add(e1); //fügt die Einheiten in die ArrayList
+        einheiten.add(e1); //fügt die Einheiten/Objekte in die ArrayList
         einheiten.add(e2);
         einheiten.add(e3);
         einheiten.add(e4);
